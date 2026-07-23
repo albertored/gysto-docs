@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gysto — Privacy Policy</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #ffffff;
+    --fg: #1c1b1a;
+    --muted: #5c5a57;
+    --accent: #2f7d4f;
+    --border: #e4e2df;
+    --card: #f7f6f4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181a;
+      --fg: #e7e6e4;
+      --muted: #a7a6a3;
+      --accent: #6fca92;
+      --border: #2b2e31;
+      --card: #1e2124;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+  header { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  h1 { font-size: 1.9rem; margin: 0 0 .25rem; }
+  h2 { font-size: 1.25rem; margin: 2.2rem 0 .6rem; }
+  .date { color: var(--muted); font-size: .95rem; margin: 0 0 1.5rem; }
+  a { color: var(--accent); }
+  ul { padding-left: 1.2rem; }
+  li { margin: .35rem 0; }
+  .toggle { display: inline-flex; border: 1px solid var(--border); border-radius: 999px; overflow: hidden; }
+  .toggle button {
+    appearance: none; border: 0; background: transparent; color: var(--muted);
+    padding: .4rem .9rem; font: inherit; font-size: .9rem; cursor: pointer;
+  }
+  .toggle button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+  @media (prefers-color-scheme: dark) { .toggle button[aria-pressed="true"] { color: #0c1410; } }
+  .lang[hidden] { display: none; }
+  footer { margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--border); color: var(--muted); font-size: .9rem; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div>
+      <h1>Gysto — Privacy Policy</h1>
+    </div>
+    <div class="toggle" role="group" aria-label="Language">
+      <button id="btn-en" aria-pressed="true" onclick="setLang('en')">English</button>
+      <button id="btn-it" aria-pressed="false" onclick="setLang('it')">Italiano</button>
+    </div>
+  </header>
+
+  <!-- ==================== ENGLISH ==================== -->
+  <section class="lang" id="lang-en" lang="en">
+    <p class="date">Effective date: <!-- PUBLISH-DATE -->23 July 2026</p>
+
+    <p>Gysto (“the app”) is a smart pantry and food-waste-reduction app developed by
+    Alberto Sartori (“we”, “us”). This policy explains what the app does with your
+    information. It describes the app as it currently works and is dated above; we may
+    update it, and the date will always reflect the current version.</p>
+
+    <h2>Who we are</h2>
+    <p>Data controller: <strong>Alberto Sartori</strong>. Contact:
+    <a href="mailto:gysto.app@gmail.com">gysto.app@gmail.com</a>.</p>
+
+    <h2>Your data stays on your device</h2>
+    <p>Gysto works on your device. Everything you enter — pantry items, receipts,
+    recipes and related information — is stored in a local database on your phone.
+    Using the app requires no account and no sign-up. Gysto contains no analytics,
+    advertising, tracking or crash-reporting tools, and does not build a profile of you.</p>
+
+    <h2>Product lookups (Open Food Facts)</h2>
+    <p>When you look up or scan a product, Gysto sends that product’s barcode — together
+    with your language and region codes, so results are localized — to
+    <a href="https://world.openfoodfacts.org/" target="_blank" rel="noopener">Open Food
+    Facts</a>, a third-party food-product database, to retrieve information about the
+    item. This happens only when you look up a product, and no account or personal
+    identifier is attached to the request. As with any internet request, Open Food Facts
+    receives the network information inherent to the connection, such as your IP address.
+    Open Food Facts handles this data under
+    <a href="https://world.openfoodfacts.org/privacy" target="_blank" rel="noopener">its
+    own privacy policy</a>.</p>
+
+    <h2>Optional backup to your Google Drive</h2>
+    <p>Gysto offers an optional backup feature, turned off by default. If you turn it on,
+    Gysto asks permission to access a private, app-specific area of your Google Drive and
+    stores there a snapshot (a copy) of your local database, so you can restore your data
+    on a new device.</p>
+    <ul>
+      <li>To use backup, you sign in with Google. The app reads your Google account name
+      and email to perform the backup; this information is used only on your device and is
+      never sent to us.</li>
+      <li>The backup is stored in a private, per-app area of your Google Drive that other
+      apps cannot see and that does not appear among your normal Drive files. It remains in
+      your Google account and counts toward your Google Drive storage. You can review or
+      delete it at any time from Google Drive’s app-management settings, or revoke Gysto’s
+      access.</li>
+      <li>No copy of the backup is ever sent to us or to any other party. Only Gysto, on
+      your signed-in account, reads it to restore your data. Because the backup lives in
+      Google Drive, Google’s terms and privacy policy govern that storage.</li>
+    </ul>
+
+    <h2>Feedback you choose to send</h2>
+    <p>If you contact us by email (for example to send feedback or report a problem), we
+    receive whatever you choose to write, including your email address. We use it only to
+    reply to you.</p>
+
+    <h2>Your control over your data</h2>
+    <p>Because your data lives on your device — and, if you enable backup, in your own
+    Google Drive — you are in control of it. You can delete it at any time by removing
+    items in the app, clearing the app’s data, uninstalling the app, and, for backups, by
+    deleting the backup or revoking access from your Google Drive settings. We do not hold
+    a copy of your data to delete on your behalf.</p>
+
+    <h2>Children</h2>
+    <p>Gysto is not directed at children. It collects no personal data regardless of the
+    user’s age.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>We may update this policy. The effective date at the top always reflects the current
+    version.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about this policy:
+    <a href="mailto:gysto.app@gmail.com">gysto.app@gmail.com</a>.</p>
+  </section>
+
+  <!-- ==================== ITALIANO ==================== -->
+  <section class="lang" id="lang-it" lang="it" hidden>
+    <p class="date">Data di entrata in vigore: <!-- PUBLISH-DATE -->23 luglio 2026</p>
+
+    <p>Gysto (“l’app”) è un’app per la gestione della dispensa e la riduzione degli sprechi
+    alimentari, sviluppata da Alberto Sartori (“noi”). Questa informativa spiega cosa fa
+    l’app con le tue informazioni. Descrive l’app così come funziona attualmente e riporta
+    la data qui sopra; potremo aggiornarla, e la data rifletterà sempre la versione
+    corrente.</p>
+
+    <h2>Chi siamo</h2>
+    <p>Titolare del trattamento: <strong>Alberto Sartori</strong>. Contatto:
+    <a href="mailto:gysto.app@gmail.com">gysto.app@gmail.com</a>.</p>
+
+    <h2>I tuoi dati restano sul tuo dispositivo</h2>
+    <p>Gysto funziona sul tuo dispositivo. Tutto ciò che inserisci — prodotti in dispensa,
+    scontrini, ricette e informazioni correlate — è salvato in un database locale sul tuo
+    telefono. L’uso dell’app non richiede alcun account né registrazione. Gysto non contiene
+    strumenti di analisi, pubblicità, tracciamento o segnalazione dei crash, e non crea un
+    profilo su di te.</p>
+
+    <h2>Ricerca prodotti (Open Food Facts)</h2>
+    <p>Quando cerchi o scansioni un prodotto, Gysto invia il codice a barre di quel prodotto
+    — insieme ai codici della tua lingua e regione, per ottenere risultati localizzati — a
+    <a href="https://world.openfoodfacts.org/" target="_blank" rel="noopener">Open Food
+    Facts</a>, un database di prodotti alimentari di terze parti, per recuperare le
+    informazioni sull’articolo. Questo avviene solo quando cerchi un prodotto, e nessun
+    account o identificativo personale è associato alla richiesta. Come per qualunque
+    richiesta su internet, Open Food Facts riceve le informazioni di rete inerenti alla
+    connessione, come il tuo indirizzo IP. Open Food Facts tratta questi dati secondo
+    <a href="https://world.openfoodfacts.org/privacy" target="_blank" rel="noopener">la
+    propria informativa sulla privacy</a>.</p>
+
+    <h2>Backup facoltativo sul tuo Google Drive</h2>
+    <p>Gysto offre una funzione di backup facoltativa, disattivata per impostazione
+    predefinita. Se la attivi, Gysto chiede il permesso di accedere a un’area privata e
+    dedicata all’app del tuo Google Drive e vi salva un’istantanea (una copia) del tuo
+    database locale, così da poter ripristinare i tuoi dati su un nuovo dispositivo.</p>
+    <ul>
+      <li>Per usare il backup accedi con Google. L’app legge il nome e l’email del tuo
+      account Google per eseguire il backup; queste informazioni sono usate solo sul tuo
+      dispositivo e non ci vengono mai inviate.</li>
+      <li>Il backup è salvato in un’area privata e dedicata all’app del tuo Google Drive che
+      le altre app non possono vedere e che non compare tra i tuoi normali file di Drive.
+      Resta nel tuo account Google e occupa spazio nel tuo Google Drive. Puoi consultarlo o
+      eliminarlo in qualsiasi momento dalle impostazioni di gestione delle app di Google
+      Drive, oppure revocare l’accesso di Gysto.</li>
+      <li>Nessuna copia del backup viene mai inviata a noi o a terzi. Solo Gysto, sul tuo
+      account con cui hai effettuato l’accesso, lo legge per ripristinare i tuoi dati. Poiché
+      il backup risiede su Google Drive, quello spazio di archiviazione è regolato dai
+      termini e dall’informativa sulla privacy di Google.</li>
+    </ul>
+
+    <h2>Feedback che scegli di inviare</h2>
+    <p>Se ci contatti via email (ad esempio per inviare un feedback o segnalare un problema),
+    riceviamo ciò che scegli di scrivere, incluso il tuo indirizzo email. Lo usiamo solo per
+    risponderti.</p>
+
+    <h2>Il tuo controllo sui dati</h2>
+    <p>Poiché i tuoi dati risiedono sul tuo dispositivo — e, se attivi il backup, nel tuo
+    Google Drive — sei tu ad averne il controllo. Puoi eliminarli in qualsiasi momento
+    rimuovendo gli elementi nell’app, cancellando i dati dell’app, disinstallando l’app e,
+    per i backup, eliminando il backup o revocando l’accesso dalle impostazioni del tuo
+    Google Drive. Non conserviamo alcuna copia dei tuoi dati da eliminare per tuo conto.</p>
+
+    <h2>Minori</h2>
+    <p>Gysto non è rivolta ai minori. Non raccoglie alcun dato personale, indipendentemente
+    dall’età dell’utente.</p>
+
+    <h2>Modifiche a questa informativa</h2>
+    <p>Potremo aggiornare questa informativa. La data di entrata in vigore in alto riflette
+    sempre la versione corrente.</p>
+
+    <h2>Contatti</h2>
+    <p>Domande su questa informativa:
+    <a href="mailto:gysto.app@gmail.com">gysto.app@gmail.com</a>.</p>
+  </section>
+
+  <footer>
+    <p>Gysto · Alberto Sartori · <a href="mailto:gysto.app@gmail.com">gysto.app@gmail.com</a></p>
+  </footer>
+</main>
+
+<script>
+  function setLang(l) {
+    document.getElementById('lang-en').hidden = (l !== 'en');
+    document.getElementById('lang-it').hidden = (l !== 'it');
+    document.getElementById('btn-en').setAttribute('aria-pressed', l === 'en');
+    document.getElementById('btn-it').setAttribute('aria-pressed', l === 'it');
+    document.documentElement.lang = l;
+  }
+  // Default to the browser's language if it is Italian.
+  if ((navigator.language || '').toLowerCase().startsWith('it')) setLang('it');
+</script>
+</body>
+</html>
