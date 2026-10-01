@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Gysto — La tua dispensa, senza sprechi</title>
+<meta name="description" content="Dispensa e scadenze sott&#39;occhio: scansiona lo scontrino e spreca meno cibo.">
+<link rel="canonical" href="https://gysto.it/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Gysto">
+<meta property="og:url" content="https://gysto.it/">
+<meta property="og:title" content="La tua dispensa, senza sprechi">
+<meta property="og:description" content="Dispensa e scadenze sott&#39;occhio: scansiona lo scontrino e spreca meno cibo.">
+<meta property="og:image" content="https://gysto.it/img/og.png">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="500">
+<meta property="og:locale" content="it_IT">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<script>
+  // Italian unless the browser is not; #it / #en force it (the toggle is two
+  // links to those). Nothing is stored.
+  (function () {
+    var titles = {"en": "Gysto \u2014 Your pantry, without the waste", "it": "Gysto \u2014 La tua dispensa, senza sprechi"};
+    function pick() {
+      var hash = location.hash.slice(1);
+      if (hash === 'it' || hash === 'en') return hash;
+      return /^it\b/i.test(navigator.language || '') ? 'it' : 'en';
+    }
+    function apply() {
+      var lang = pick();
+      document.documentElement.lang = lang;
+      document.title = titles[lang];
+      var links = document.querySelectorAll('.lang a');
+      for (var i = 0; i < links.length; i++) {
+        if (links[i].hash === '#' + lang) links[i].setAttribute('aria-current', 'true');
+        else links[i].removeAttribute('aria-current');
+      }
+    }
+    apply();
+    document.addEventListener('DOMContentLoaded', apply);
+    window.addEventListener('hashchange', apply);
+  })();
+</script>
+<style>
+@font-face {
+  font-family: "Google Sans Flex";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/google-sans-flex-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Google Sans Flex";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/google-sans-flex-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Google Sans Flex";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/google-sans-flex-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Google Sans Flex";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("fonts/google-sans-flex-900.woff2") format("woff2");
+}
+
+/* The app's colour roles (the Gysto design system, tokens/colors.css), only the
+   ones the page uses. Dark follows the system, never a script. */
+:root {
+  color-scheme: light dark;
+  --surface: #fafcf8;
+  --surface-container-low: #f0f5ed;
+  --surface-container-high: #e9efe4;
+  --on-surface: #1b1c1a;
+  --on-surface-variant: #6b7269;
+  --outline-variant: #c5ccc0;
+  --primary: #3a8a40;
+  --on-primary: #ffffff;
+  --primary-container: #d4edda;
+  --on-primary-container: #0c4012;
+  --bezel: #1b1c1a;
+  --shadow: rgba(27, 28, 26, 0.18);
+  --font: "Google Sans Flex", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface: #141414;
+    --surface-container-low: #1e1e1e;
+    --surface-container-high: #2c2c2c;
+    --on-surface: #e5e5e3;
+    --on-surface-variant: #b4b6b2;
+    --outline-variant: #3d3f3c;
+    --primary: #74d97d;
+    --on-primary: #06380f;
+    --primary-container: #23572b;
+    --on-primary-container: #c9f2cd;
+    --bezel: #4a4d49;
+    --shadow: rgba(0, 0, 0, 0.45);
+  }
+}
+
+html:not([lang="en"]) [lang="en"],
+html[lang="en"] [lang="it"] {
+  display: none !important;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--surface);
+  color: var(--on-surface);
+  font: 400 17px/1.6 var(--font);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3, p { margin: 0; }
+
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-left: clamp(16px, 4vw, 48px);
+  padding-right: clamp(16px, 4vw, 48px);
+}
+
+/* Top bar */
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 22px;
+  padding-bottom: 22px;
+}
+.brand { display: flex; align-items: center; gap: 10px; color: var(--primary); }
+.brand svg { width: 30px; height: 30px; flex: none; }
+.brand span { font: 700 22px/1.2 var(--font); letter-spacing: -0.01em; color: var(--on-surface); }
+.lang {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  background: var(--surface-container-high);
+}
+.lang a {
+  padding: 7px 15px;
+  border-radius: 999px;
+  font: 600 13px/1 var(--font);
+  letter-spacing: 0.04em;
+  color: var(--on-surface-variant);
+}
+.lang a:hover { text-decoration: none; }
+html:not([lang="en"]) .lang a[href="#it"],
+html[lang="en"] .lang a[href="#en"] {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+
+/* Phones: the captures are of the light app and stay so in dark mode (brief §4). */
+.phone {
+  border-radius: 32px;
+  padding: 7px;
+  background: var(--bezel);
+  box-shadow: 0 18px 40px var(--shadow);
+}
+.phone img { border-radius: 26px; background: #fafcf8; width: 100%; }
+
+/* Hero */
+.hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(40px, 5vw, 72px);
+  padding-top: clamp(28px, 4vw, 56px);
+  padding-bottom: clamp(56px, 7vw, 96px);
+}
+.hero-text { flex: 1 1 400px; min-width: 0; }
+.hero h1 {
+  font-weight: 900;
+  font-size: clamp(34px, 4.2vw, 58px);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+.lead {
+  margin-top: clamp(18px, 2vw, 26px);
+  max-width: 30em;
+  font-size: clamp(17px, 1.35vw, 20px);
+  line-height: 1.55;
+}
+.badge { display: inline-block; line-height: 0; }
+.badge img { height: clamp(50px, 4vw, 58px); width: auto; }
+.hero .badge { margin-top: clamp(26px, 3vw, 38px); }
+.hero-phones {
+  flex: 1 1 380px;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 8px;
+}
+.hero-phones .phone { width: clamp(150px, 17vw, 236px); flex: none; position: relative; }
+.hero-phones .front { z-index: 2; margin-top: clamp(28px, 3vw, 44px); }
+.hero-phones .back { z-index: 1; margin-left: clamp(-56px, -4vw, -32px); }
+
+/* The loop: the captured diagram is opaque on the theme's surface, and so is its stage. */
+.loop { padding-top: clamp(48px, 6vw, 88px); padding-bottom: clamp(16px, 2vw, 32px); background: var(--surface); }
+.intro { max-width: 44em; font-size: clamp(17px, 1.3vw, 19px); line-height: 1.65; }
+.diagram { max-width: 480px; margin: clamp(40px, 5vw, 72px) auto clamp(8px, 1vw, 16px); }
+.diagram img { width: 100%; }
+
+/* Rows, one per ring node, in ring order */
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(64px, 8vw, 116px);
+  padding-top: clamp(48px, 6vw, 88px);
+  padding-bottom: clamp(56px, 7vw, 104px);
+}
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: clamp(36px, 5vw, 80px); }
+.row:nth-child(even) { flex-direction: row-reverse; }
+.row-text { flex: 1 1 380px; min-width: 0; }
+.row .phone { width: 100%; max-width: 262px; margin: 0 auto; }
+.eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.glyph {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  flex: none;
+  border-radius: 999px;
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+}
+.glyph svg { width: 24px; height: 24px; }
+.node {
+  font: 600 13px/1.2 var(--font);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+.row h2 {
+  font: 700 clamp(24px, 2.3vw, 32px)/1.2 var(--font);
+  letter-spacing: -0.015em;
+  max-width: 22em;
+  text-wrap: balance;
+}
+.row p { margin-top: 16px; max-width: 34em; font-size: clamp(16px, 1.2vw, 17.5px); line-height: 1.65; }
+
+/* Two declarations */
+.declarations {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: clamp(16px, 2vw, 24px);
+}
+.card { background: var(--surface-container-low); border-radius: 16px; padding: clamp(24px, 3vw, 36px); }
+.card h3 { font: 600 clamp(18px, 1.5vw, 21px)/1.3 var(--font); }
+.card p { margin-top: 14px; font-size: 15.5px; line-height: 1.65; }
+.card .more { margin-top: 18px; font: 600 15px/1.4 var(--font); }
+
+.closing { display: flex; justify-content: center; padding: clamp(64px, 8vw, 112px) 16px; }
+
+footer { border-top: 1px solid var(--outline-variant); }
+.foot {
+  padding-top: 26px;
+  padding-bottom: 44px;
+  font: 400 13px/1.6 var(--font);
+  color: var(--on-surface-variant);
+}
+.foot a { color: var(--on-surface-variant); text-decoration: underline; text-decoration-color: var(--outline-variant); }
+.foot-links { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.foot-links > * { white-space: nowrap; }
+.foot p { margin-top: 14px; }
+</style>
+</head>
+<body>
+
+<header class="wrap top">
+  <div class="brand">
+    <svg viewBox="0 0 1024 1024" aria-hidden="true"><g transform="translate(0,1024) scale(0.1,-0.1)" fill="currentColor"><path d="M7935 8310 c-48 -51 -201 -147 -287 -180 -96 -37 -254 -76 -368 -90 -47 -6 -206 -17 -355 -25 -419 -24 -615 -56 -820 -135 -229 -89 -439 -245 -578 -428 -118 -158 -180 -283 -231 -472 -27 -100 -56 -314 -56 -415 l0 -59 68 65 c117 115 280 234 435 319 42 23 84 51 91 62 8 11 35 70 61 132 100 238 150 328 226 410 86 93 129 121 74 50 -58 -77 -115 -206 -166 -374 -26 -85 -46 -156 -44 -158 2 -2 45 12 97 31 51 19 176 62 278 96 174 58 187 65 227 107 26 28 67 97 113 190 63 130 146 271 155 262 3 -3 -123 -384 -139 -420 -7 -16 1 -14 60 8 38 15 78 29 89 32 40 11 272 119 341 160 92 53 211 142 299 223 88 81 57 34 -58 -87 -132 -140 -269 -243 -473 -358 -127 -71 -261 -130 -579 -258 -287 -115 -440 -185 -563 -260 -342 -206 -634 -514 -798 -840 -48 -96 -56 -155 -29 -207 17 -34 62 -55 98 -46 35 9 60 40 87 107 50 128 196 345 250 373 41 21 68 19 167 -14 264 -87 372 -105 628 -105 218 0 339 18 517 80 641 221 1069 798 1188 1600 26 177 45 519 34 597 l-9 58 -30 -31z m-440 -1189 c-12 -20 -113 -70 -171 -85 -83 -21 -214 -20 -358 3 -65 11 -120 22 -122 24 -3 2 17 13 43 23 34 13 70 19 123 17 373 -7 395 -7 435 9 49 19 58 21 50 9z m-1159 -406 c28 -8 114 -41 191 -74 196 -83 270 -104 388 -110 l100 -6 -50 -18 c-27 -11 -91 -21 -140 -24 -110 -7 -203 11 -365 68 -63 23 -177 63 -253 89 l-138 48 43 15 c24 9 50 18 58 21 32 10 118 5 166 -9z"/><path d="M4505 7740 c-558 -69 -1049 -274 -1465 -610 -239 -194 -423 -396 -595 -655 -171 -258 -289 -508 -369 -784 -177 -608 -163 -1218 42 -1821 171 -503 507 -984 918 -1313 403 -324 854 -521 1374 -602 139 -22 501 -31 657 -16 596 55 1170 304 1619 702 461 409 786 992 879 1579 47 299 -30 512 -223 613 -141 75 -259 86 -577 56 -311 -29 -620 -32 -715 -6 -109 29 -185 73 -273 156 -98 92 -162 137 -231 163 -75 29 -187 48 -280 48 -136 0 -477 -36 -801 -85 -55 -9 -175 -26 -267 -40 -91 -13 -176 -30 -188 -37 -40 -25 -40 -80 0 -109 23 -18 64 -20 545 -30 443 -9 523 -13 546 -26 27 -16 49 -51 49 -79 0 -28 -28 -70 -55 -82 -15 -7 -115 -17 -233 -22 -222 -11 -626 -36 -757 -46 -69 -6 -83 -11 -107 -35 -34 -33 -35 -59 -5 -94 27 -32 39 -33 657 -65 217 -11 407 -23 422 -26 35 -7 78 -58 78 -91 0 -15 -13 -38 -33 -58 l-33 -33 -204 -6 c-113 -3 -344 -8 -515 -11 -170 -3 -319 -9 -330 -12 -68 -19 -76 -96 -14 -129 27 -13 317 -58 774 -120 256 -35 533 -43 637 -20 136 30 232 87 373 219 41 39 139 90 235 123 43 15 83 19 190 19 123 0 138 -2 171 -23 41 -25 63 -68 62 -119 -3 -93 -124 -373 -230 -530 -282 -420 -755 -686 -1285 -722 -324 -21 -667 43 -933 177 -103 51 -279 170 -369 250 -393 349 -636 898 -638 1442 0 80 5 186 11 235 105 822 624 1438 1373 1629 138 35 263 47 457 44 l191 -3 4 30 c52 365 138 580 333 832 35 45 60 84 55 86 -4 3 -77 17 -162 32 -138 24 -185 28 -425 30 -148 2 -301 0 -340 -5z"/></g></svg>
+    <span>Gysto</span>
+  </div>
+  <nav class="lang" aria-label="Lingua / Language"><a href="#it" hreflang="it">IT</a><a href="#en" hreflang="en">EN</a></nav>
+</header>
+
+<main>
+<section class="wrap hero">
+  <div class="hero-text">
+    <h1><span lang="it">La tua dispensa, senza sprechi</span><span lang="en">Your pantry, without the waste</span></h1>
+    <p class="lead"><span lang="it">Dispensa e scadenze sott&#39;occhio: scansiona lo scontrino e spreca meno cibo.</span><span lang="en">Pantry and expiry dates at a glance: scan your receipt and waste less food.</span></p>
+    
+<a class="badge" lang="it" href="https://play.google.com/store/apps/details?id=com.gysto.gysto&amp;hl=it"><img src="img/it/google-play.png" width="646" height="250" alt="Disponibile su Google Play"></a>
+<a class="badge" lang="en" href="https://play.google.com/store/apps/details?id=com.gysto.gysto&amp;hl=en"><img src="img/en/google-play.png" width="646" height="250" alt="Get it on Google Play"></a>
+  </div>
+  <div class="hero-phones">
+    <div class="phone front">
+<img lang="it" src="img/it/03-pantry.webp" width="540" height="1212" alt="La Dispensa: i prodotti divisi per categoria, ognuno con la quantità e la scadenza.">
+<img lang="en" src="img/en/03-pantry.webp" width="540" height="1212" alt="The Pantry: products grouped by category, each with its quantity and expiry." loading="lazy">
+</div>
+    <div class="phone back">
+<img lang="it" src="img/it/06-home-trends.webp" width="540" height="1212" alt="La home con l&#39;andamento delle spese mese per mese e la dispensa divisa per categoria.">
+<img lang="en" src="img/en/06-home-trends.webp" width="540" height="1212" alt="The home screen with spending month by month and the pantry split by category." loading="lazy">
+</div>
+  </div>
+</section>
+
+<section class="loop">
+  <div class="wrap">
+    <p class="intro"><span lang="it">Metà del cibo che buttiamo era stato comprato con le migliori intenzioni. Gysto è un&#39;app per la dispensa costruita attorno a un ciclo: sai cosa hai, decidi cosa cucinare, compri solo quello che manca — e la spesa riempie di nuovo la dispensa.</span><span lang="en">Half the food we throw away was bought with the best of intentions. Gysto is a pantry app built around one loop: know what you have, plan what to cook, buy only what is missing — and let the shopping fill the pantry back up.</span></p>
+    <div class="diagram">
+      <picture lang="it">
+        <source media="(prefers-color-scheme: dark)" srcset="img/it/loop-dark.webp">
+        <img src="img/it/loop-light.webp" width="960" height="780" alt="Dispensa → Menù → Lista della spesa → Scontrino → Dispensa, e dal Menù, ogni giorno, cucinare toglie gli ingredienti dalla Dispensa." loading="lazy">
+      </picture>
+      <picture lang="en">
+        <source media="(prefers-color-scheme: dark)" srcset="img/en/loop-dark.webp">
+        <img src="img/en/loop-light.webp" width="960" height="780" alt="Pantry → Menu → Shopping list → Receipt → Pantry, and from the Menu, every day, cooking takes the ingredients out of the Pantry." loading="lazy">
+      </picture>
+    </div>
+  </div>
+</section>
+
+<section class="wrap rows">
+  <article class="row">
+    <div class="row-text">
+      <div class="eyebrow">
+        <span class="glyph" aria-hidden="true"><svg viewBox="0 0 960 960"><path fill="currentColor" d="M320 280V240Q320 223 331.5 211.5Q343 200 360 200Q377 200 388.5 211.5Q400 223 400 240V280Q400 297 388.5 308.5Q377 320 360 320Q343 320 331.5 308.5Q320 297 320 280ZM320 640V520Q320 503 331.5 491.5Q343 480 360 480Q377 480 388.5 491.5Q400 503 400 520V640Q400 657 388.5 668.5Q377 680 360 680Q343 680 331.5 668.5Q320 657 320 640ZM240 880Q207 880 183.5 856.5Q160 833 160 800V160Q160 127 183.5 103.5Q207 80 240 80H720Q753 80 776.5 103.5Q800 127 800 160V800Q800 833 776.5 856.5Q753 880 720 880ZM240 800H720Q720 800 720 800Q720 800 720 800V440H240V800Q240 800 240 800Q240 800 240 800ZM240 360H720V160Q720 160 720 160Q720 160 720 160H240Q240 160 240 160Q240 160 240 160Z"/></svg></span>
+        <span class="node"><span lang="it">Dispensa</span><span lang="en">Pantry</span></span>
+      </div>
+      <h2><span lang="it">Sai cosa scade prima che scada</span><span lang="en">Know what expires before it expires</span></h2>
+      <p><span lang="it">La home si apre su quello che sta per andare a male, così il barattolo in fondo al frigo diventa la cena di stasera invece della spazzatura del mese prossimo.</span><span lang="en">Your home screen leads with what is about to go off, so the jar at the back of the fridge becomes tonight&#39;s dinner instead of next month&#39;s bin.</span></p>
+    </div>
+    <div class="phone">
+<img lang="it" src="img/it/01-home.webp" width="540" height="1212" alt="La home: le azioni rapide, i prodotti in scadenza e i pasti di oggi." loading="lazy">
+<img lang="en" src="img/en/01-home.webp" width="540" height="1212" alt="The home screen: quick actions, what is about to expire and today&#39;s meals." loading="lazy">
+</div>
+  </article>
+  <article class="row">
+    <div class="row-text">
+      <div class="eyebrow">
+        <span class="glyph" aria-hidden="true"><svg viewBox="0 0 960 960"><path fill="currentColor" d="M200 880Q167 880 143.5 856.5Q120 833 120 800V240Q120 207 143.5 183.5Q167 160 200 160H240V120Q240 103 251.5 91.5Q263 80 280 80Q297 80 308.5 91.5Q320 103 320 120V160H640V120Q640 103 651.5 91.5Q663 80 680 80Q697 80 708.5 91.5Q720 103 720 120V160H760Q793 160 816.5 183.5Q840 207 840 240V800Q840 833 816.5 856.5Q793 880 760 880ZM200 800H760Q760 800 760 800Q760 800 760 800V400H200V800Q200 800 200 800Q200 800 200 800ZM200 320H760V240Q760 240 760 240Q760 240 760 240H200Q200 240 200 240Q200 240 200 240ZM200 320V240Q200 240 200 240Q200 240 200 240Q200 240 200 240Q200 240 200 240V320ZM480 560Q463 560 451.5 548.5Q440 537 440 520Q440 503 451.5 491.5Q463 480 480 480Q497 480 508.5 491.5Q520 503 520 520Q520 537 508.5 548.5Q497 560 480 560ZM320 560Q303 560 291.5 548.5Q280 537 280 520Q280 503 291.5 491.5Q303 480 320 480Q337 480 348.5 491.5Q360 503 360 520Q360 537 348.5 548.5Q337 560 320 560ZM640 560Q623 560 611.5 548.5Q600 537 600 520Q600 503 611.5 491.5Q623 480 640 480Q657 480 668.5 491.5Q680 503 680 520Q680 537 668.5 548.5Q657 560 640 560ZM480 720Q463 720 451.5 708.5Q440 697 440 680Q440 663 451.5 651.5Q463 640 480 640Q497 640 508.5 651.5Q520 663 520 680Q520 697 508.5 708.5Q497 720 480 720ZM280 680Q280 663 291.5 651.5Q303 640 320 640Q337 640 348.5 651.5Q360 663 360 680Q360 697 348.5 708.5Q337 720 320 720Q303 720 291.5 708.5Q280 697 280 680ZM640 720Q623 720 611.5 708.5Q600 697 600 680Q600 663 611.5 651.5Q623 640 640 640Q657 640 668.5 651.5Q680 663 680 680Q680 697 668.5 708.5Q657 720 640 720Z"/></svg></span>
+        <span class="node"><span lang="it">Menù</span><span lang="en">Menu</span></span>
+      </div>
+      <h2><span lang="it">Un menù che parte da quello che hai già</span><span lang="en">A menu that starts from what you already have</span></h2>
+      <p><span lang="it">Pianifica la settimana pasto per pasto, con le tue ricette. Quando cucini, gli ingredienti escono dalla dispensa: il conto resta onesto senza che tu lo aggiorni a mano.</span><span lang="en">Plan the week meal by meal, from your own recipes. Cooking a meal takes its ingredients out of the pantry, so the count stays honest without you maintaining it by hand.</span></p>
+    </div>
+    <div class="phone">
+<img lang="it" src="img/it/04-planner.webp" width="540" height="1212" alt="Il menù della settimana, giorno per giorno, con i pasti già decisi." loading="lazy">
+<img lang="en" src="img/en/04-planner.webp" width="540" height="1212" alt="The week&#39;s menu, day by day, with the meals already decided." loading="lazy">
+</div>
+  </article>
+  <article class="row">
+    <div class="row-text">
+      <div class="eyebrow">
+        <span class="glyph" aria-hidden="true"><svg viewBox="0 0 960 960"><path fill="currentColor" d="M280 880Q247 880 223.5 856.5Q200 833 200 800Q200 767 223.5 743.5Q247 720 280 720Q313 720 336.5 743.5Q360 767 360 800Q360 833 336.5 856.5Q313 880 280 880ZM680 880Q647 880 623.5 856.5Q600 833 600 800Q600 767 623.5 743.5Q647 720 680 720Q713 720 736.5 743.5Q760 767 760 800Q760 833 736.5 856.5Q713 880 680 880ZM246 240 342 440H622Q622 440 622 440Q622 440 622 440L732 240Q732 240 732 240Q732 240 732 240ZM208 160H798Q821 160 833 180.5Q845 201 834 222L692 478Q681 498 662.5 509Q644 520 622 520H324L280 600Q280 600 280 600Q280 600 280 600H720Q737 600 748.5 611.5Q760 623 760 640Q760 657 748.5 668.5Q737 680 720 680H280Q235 680 212 640.5Q189 601 210 562L264 464L120 160H80Q63 160 51.5 148.5Q40 137 40 120Q40 103 51.5 91.5Q63 80 80 80H145Q156 80 166 86Q176 92 181 103ZM342 440H622Q622 440 622 440Q622 440 622 440Z"/></svg></span>
+        <span class="node"><span lang="it">Lista della spesa</span><span lang="en">Shopping list</span></span>
+      </div>
+      <h2><span lang="it">Una lista della spesa che si scrive da sola</span><span lang="en">A shopping list that writes itself</span></h2>
+      <p><span lang="it">Genera la lista dal menù della settimana: Gysto sottrae quello che la dispensa ha già, e ti resta solo ciò che manca davvero. Ordinala secondo le corsie del tuo supermercato e fai la spesa in un giro solo.</span><span lang="en">Generate the list from the week&#39;s menu and Gysto subtracts what the pantry already holds: you get only what is actually missing. Sort it by your supermarket&#39;s aisle order and shop in a single pass.</span></p>
+    </div>
+    <div class="phone">
+<img lang="it" src="img/it/05-shopping-list.webp" width="540" height="1212" alt="Una lista della spesa divisa per corsia, con gli acquisti pronti da spostare in dispensa." loading="lazy">
+<img lang="en" src="img/en/05-shopping-list.webp" width="540" height="1212" alt="A shopping list sorted by aisle, with the bought items ready to move to the pantry." loading="lazy">
+</div>
+  </article>
+  <article class="row">
+    <div class="row-text">
+      <div class="eyebrow">
+        <span class="glyph" aria-hidden="true"><svg viewBox="0 0 960 960"><path fill="currentColor" d="M240 880Q190 880 155 845Q120 810 120 760V680Q120 663 131.5 651.5Q143 640 160 640H240V104Q240 97 246 94.5Q252 92 257 97L286 126Q292 132 300 132Q308 132 314 126L346 94Q352 88 360 88Q368 88 374 94L406 126Q412 132 420 132Q428 132 434 126L466 94Q472 88 480 88Q488 88 494 94L526 126Q532 132 540 132Q548 132 554 126L586 94Q592 88 600 88Q608 88 614 94L646 126Q652 132 660 132Q668 132 674 126L706 94Q712 88 720 88Q728 88 734 94L766 126Q772 132 780 132Q788 132 794 126L823 97Q828 92 834 94.5Q840 97 840 104V760Q840 810 805 845Q770 880 720 880ZM720 800Q737 800 748.5 788.5Q760 777 760 760V200H320V640H640Q657 640 668.5 651.5Q680 663 680 680V760Q680 777 691.5 788.5Q703 800 720 800ZM400 280H560Q577 280 588.5 291.5Q600 303 600 320Q600 337 588.5 348.5Q577 360 560 360H400Q383 360 371.5 348.5Q360 337 360 320Q360 303 371.5 291.5Q383 280 400 280ZM400 400H560Q577 400 588.5 411.5Q600 423 600 440Q600 457 588.5 468.5Q577 480 560 480H400Q383 480 371.5 468.5Q360 457 360 440Q360 423 371.5 411.5Q383 400 400 400ZM680 360Q663 360 651.5 348.5Q640 337 640 320Q640 303 651.5 291.5Q663 280 680 280Q697 280 708.5 291.5Q720 303 720 320Q720 337 708.5 348.5Q697 360 680 360ZM680 480Q663 480 651.5 468.5Q640 457 640 440Q640 423 651.5 411.5Q663 400 680 400Q697 400 708.5 411.5Q720 423 720 440Q720 457 708.5 468.5Q697 480 680 480ZM240 800H600V720H200V760Q200 777 211.5 788.5Q223 800 240 800ZM200 800Q200 800 200 788.5Q200 777 200 760V720V800Z"/></svg></span>
+        <span class="node"><span lang="it">Scontrino</span><span lang="en">Receipt</span></span>
+      </div>
+      <h2><span lang="it">Scansiona lo scontrino, riempi la dispensa</span><span lang="en">Scan the receipt, fill the pantry</span></h2>
+      <p><span lang="it">Fotografa lo scontrino del supermercato: Gysto legge le righe, le riconosce come prodotti e le mette in dispensa. Funzionano anche i codici a barre, con i dati prodotto di Open Food Facts. Quelli che erano venti minuti di digitazione adesso sono una foto.</span><span lang="en">Photograph your supermarket receipt: Gysto reads the lines, matches them to products and puts them in your pantry. Barcodes work too, with product data from Open Food Facts. What used to be twenty minutes of typing is now a photo.</span></p>
+    </div>
+    <div class="phone">
+<img lang="it" src="img/it/02-receipt-review.webp" width="540" height="1212" alt="La revisione di uno scontrino: ogni riga riconosciuta come prodotto, pronta per la dispensa." loading="lazy">
+<img lang="en" src="img/en/02-receipt-review.webp" width="540" height="1212" alt="Reviewing a receipt: every line matched to a product, ready for the pantry." loading="lazy">
+</div>
+  </article>
+</section>
+
+<section class="wrap declarations">
+  <div class="card">
+    <h3><span lang="it">Niente account, niente registrazione</span><span lang="en">No account, no sign-up</span></h3>
+    <p><span lang="it">Gysto tiene i tuoi dati sul telefono e funziona anche senza connessione. Non c&#39;è niente da registrare e niente da sincronizzare, a meno che tu non lo chieda. Il backup sul tuo Google Drive è facoltativo, e resta nel tuo Drive. Cercare un prodotto manda un codice a barre a Open Food Facts, e nient&#39;altro.</span><span lang="en">Gysto keeps your data on your phone, and works without a connection. There is nothing to register and nothing to sync unless you ask for it. Backing up to your own Google Drive is optional, and the backup stays in your own Drive. Looking up a product sends a barcode to Open Food Facts and nothing else.</span></p>
+    <p class="more"><a href="privacy/"><span lang="it">Leggi l&#39;informativa completa</span><span lang="en">Read the full policy</span> →</a></p>
+  </div>
+  <div class="card">
+    <h3><span lang="it">Gysto Pro è una richiesta, non un muro</span><span lang="en">Gysto Pro is an ask, not a wall</span></h3>
+    <p><span lang="it">In Gysto non c&#39;è niente di bloccato. Alcune funzioni portano una nota discreta che dice che sono quelle per cui la gente sostiene l&#39;app, e un pulsante che puoi saltare tutte le volte. Se Gysto se lo merita, ci sono due acquisti una tantum — nessun abbonamento, niente che si rinnova, e nessuna funzione che compare o sparisce quando paghi. Stai pagando il lavoro, e lo stai dicendo.</span><span lang="en">Nothing in Gysto is locked. A few features carry a quiet note saying they are the ones people support the app for, and a button you can skip every time. If Gysto earns it, there are two one-off purchases — no subscription, nothing that renews, and no feature that appears or disappears when you buy. You are paying for the work, and saying so.</span></p>
+  </div>
+</section>
+
+<section class="closing">
+  
+<a class="badge" lang="it" href="https://play.google.com/store/apps/details?id=com.gysto.gysto&amp;hl=it"><img src="img/it/google-play.png" width="646" height="250" alt="Disponibile su Google Play"></a>
+<a class="badge" lang="en" href="https://play.google.com/store/apps/details?id=com.gysto.gysto&amp;hl=en"><img src="img/en/google-play.png" width="646" height="250" alt="Get it on Google Play"></a>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div class="foot-links">
+      <a href="privacy/"><span lang="it">Informativa privacy</span><span lang="en">Privacy policy</span></a>
+      <span aria-hidden="true">·</span>
+      <a href="mailto:gysto.app@gmail.com"><span lang="it">Supporto</span><span lang="en">Support</span></a>
+      <span aria-hidden="true">·</span>
+      <span><span lang="it">Fatto da Alberto Sartori</span><span lang="en">Made by Alberto Sartori</span></span>
+    </div>
+    <p><span lang="it">Icone dei prodotti di AngDiz, BZZRINCANTATION, designbydai, Futuer, Good Ware, Icon home, Icongeek26, Iconic Panda, iconixarPro, Iconsea, imaginationlol, justicon, Khoirul Huda, kmg design, kosonicon, Magnific, Mihimihi, MindWorlds, mnauliady, monkik, Nikita Golubev, photo3idea_studio, SA Family, SBTS2018, smalllikeart, Smashicons, Superarticons, surang, tulpahn, ultimatearm da <a href="https://www.flaticon.com/">Flaticon</a>.</span><span lang="en">Product icons by AngDiz, BZZRINCANTATION, designbydai, Futuer, Good Ware, Icon home, Icongeek26, Iconic Panda, iconixarPro, Iconsea, imaginationlol, justicon, Khoirul Huda, kmg design, kosonicon, Magnific, Mihimihi, MindWorlds, mnauliady, monkik, Nikita Golubev, photo3idea_studio, SA Family, SBTS2018, smalllikeart, Smashicons, Superarticons, surang, tulpahn, ultimatearm from <a href="https://www.flaticon.com/">Flaticon</a>.</span></p>
+    <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
+  </div>
+</footer>
+
+</body>
+</html>
